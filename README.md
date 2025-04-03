@@ -19,6 +19,6 @@ device usage and present how my findings can help influence the company’s mark
 - Excel
 - Python
 - PostgreSQL
-- Dataset: Available in the /fitbit_raw_data
+- Dataset: Available in the /fitbit_raw_data folder
 
 
