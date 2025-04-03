@@ -1,0 +1,27 @@
+import pandas as pd
+from sqlalchemy import create_engine
+
+# Connect to the database (replace with your connection details)
+engine = create_engine('postgresql://postgres:%40Supermanredson1@localhost:5432/fitbit_data')
+
+# Query to get the data
+query = """
+    SELECT "Id", "ActivityDate","Calories"
+    FROM daily_activity
+"""
+
+# Load the data into a DataFrame
+df = pd.read_sql(query, engine)
+
+# Function to determine the day of the week directly from the Timestamp
+def get_day_of_week(date_obj):
+    return date_obj.strftime("%A")
+
+# Apply the function to the 'ActivityDate' column and create a new column 'Day of Week'
+df['Day of Week'] = df['ActivityDate'].apply(get_day_of_week)
+
+# View the updated DataFrame with the day of the week
+print(df)
+
+# Optionally, you can save the updated DataFrame back to the database or export it
+df.to_sql('fitbit_summary_with_day_of_week', engine, if_exists='replace', index=False)
